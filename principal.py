@@ -8,6 +8,7 @@ ALU = None ##Unidad Aritmetico Logica
 CU = None ##Control Unit 
 
 END_flag = False
+
 memory={}
 instructions=[]
 
@@ -20,7 +21,6 @@ def print_registers():
     print("ALU= "+ str(ALU))
     print("CU= "+ str(CU))
 
-
 def user_input_file(file_path):
     f = open(file_path, "r")
     for x in f:
@@ -30,22 +30,6 @@ def user_input_file(file_path):
         if(data[0] == "SET"):
             memory[data[1]] = int(data[2])
     
-    memory_index_firts_instruction = move_instructions_to_memory(100)
-    set_PC(memory_index_firts_instruction)
-
-def user_input_console():
-    while(True):
-        data = input( )
-        data = data.split(" ")
-        instructions.append(data)
-
-        if(data[0] == "END"):
-            break
-        elif(data[0] == "SET"):
-            memory[data[1]] = int(data[2])
-        elif(data[0] == "PRINT"):
-            print_registers()
-
     memory_index_firts_instruction = move_instructions_to_memory(100)
     set_PC(memory_index_firts_instruction)
 
@@ -71,8 +55,6 @@ def move_instructions_to_memory(initial_memomry_addres):
         
     return temp
 
-
-       
 
 def get_processor_instructions_starting_index():
     counter=0
@@ -154,22 +136,6 @@ def control_unit_logic(commands):
         ADD(commands)
     elif(commands[0]=="SUB"):
         SUBTRACTION(commands)
-    elif(commands[0]=="MUL"):
-        MULTIPLICATION(commands)
-    elif(commands[0]=="DIV"):
-        INTEGER_DIVISON(commands)
-    elif(commands[0]=="INC"):
-        INCREMENT(commands)
-    elif(commands[0]=="DEC"):
-        DECREMENT(commands)
-    elif(commands[0]=="MOV"):
-        MOVE(commands)
-    elif(commands[0]=="AND"):
-        AND_GATE(commands)
-    elif(commands[0]=="OR"):
-        OR_GATE(commands)
-    elif(commands[0]=="BEQ"):
-        EQUAL(commands)
     elif(commands[0]=="SHW"):
         SHOW(commands)
         
@@ -237,158 +203,6 @@ def SUBTRACTION(list):
         STORE(["STR", list[3] ])
 
 
-def MULTIPLICATION(list):
-    global ACUMULATOR, MAR, MDR
-
-    counter= get_amount_of_non_NULL_elements(list)
-    counter-=1
-
-    if(counter==1):        
-        MAR = list[1]
-        MDR = memory[MAR]
-        
-        for i in range(ACUMULATOR-1):
-            if(i==0):
-                LOAD(["LDR", MAR])
-            ADD(["ADD", MAR])
-        
-    elif(counter==2):
-        LOAD(["LDR", list[1] ])
-        MULTIPLICATION(["MUL", list[2] ])
-    
-    elif(counter==3):
-        MULTIPLICATION(["MUL", list[1], list[2] ])
-        STORE(["STR", list[3] ])
-            
-
-def INTEGER_DIVISON(list):
-    global ACUMULATOR, MAR, MDR
-
-    counter= get_amount_of_non_NULL_elements(list)
-    counter-=1
-    
-    if(counter==1):
-        MAR = list[1]
-        MDR = memory[MAR]
-
-        temp=0
-        while(True):
-            SUBTRACTION(["SUB", MAR])
-
-            if(ACUMULATOR>=0):
-                temp+=1
-            if(ACUMULATOR<=0):
-                ACUMULATOR = temp
-                break
-    
-    elif(counter==2):
-        LOAD(["LDR", list[1] ])
-        INTEGER_DIVISON(["DIV", list[2] ])
-
-    elif(counter==3):
-        INTEGER_DIVISON(["DIV", list[1], list[2] ])
-        STORE(["STR", list[3] ])
-
-
-def INCREMENT(list):
-    global ALU, ACUMULATOR
-
-    LOAD(["LDR", list[1] ])
-    ALU = ACUMULATOR
-    ALU = ALU+1
-    ACUMULATOR = ALU
-    STORE(["STR", list[1] ])
-
-
-def DECREMENT(list):
-    global ALU, ACUMULATOR
-
-    LOAD(["LDR", list[1] ])
-    ALU = ACUMULATOR
-    ALU = ALU-1
-    ACUMULATOR = ALU
-    STORE(["STR", list[1] ])
-
-
-def MOVE(list):
-    global MDR
-
-    LOAD(["LDR", list[1] ])
-    MDR = None
-    memory[MAR] = MDR
-    STORE(["STR", list[2] ])
-
-
-def EQUAL(list):
-
-    counter= get_amount_of_non_NULL_elements(list)
-    counter-=1
-
-    if(counter==1):
-        SUBTRACTION(["SUB", list[1]] )
-        if(ACUMULATOR==0):
-            STORE(["STR", list[1] ])
-    
-    elif(counter==2):
-        SUBTRACTION(["SUB", list[1], list[2] ])
-        if(ACUMULATOR==0):
-            STORE(["STR", list[2] ])
-    
-    elif(counter==3):
-        SUBTRACTION(["SUB", list[1], list[2] ])
-        if(ACUMULATOR==0):
-            STORE(["STR", list[3] ])
-
-    
-
-def AND_GATE(list):
-    global ACUMULATOR, MAR, MDR, ALU
-
-    counter= get_amount_of_non_NULL_elements(list)
-    counter-=1
-
-    if(counter==1):
-        ALU = ACUMULATOR
-        MAR = list[1]
-        MDR = memory[MAR]
-        ACUMULATOR = MDR
-
-        ALU = ALU and ACUMULATOR
-        ACUMULATOR = ALU
-
-    elif(counter==2):
-        LOAD(["LDR", list[1] ])
-        AND_GATE(["AND", list[2] ])
-
-    elif(counter==3):
-        AND_GATE(["AND", list[1], list[2] ])
-        STORE(["STR", list[3] ])
-
-
-def OR_GATE(list):
-    global ACUMULATOR, MAR, MDR, ALU
-
-    counter= get_amount_of_non_NULL_elements(list)
-    counter-=1
-
-    if(counter==1):
-        ALU = ACUMULATOR
-        MAR = list[1]
-        MDR = memory[MAR]
-        ACUMULATOR = MDR
-
-        ALU = ALU or ACUMULATOR
-        ACUMULATOR = ALU
-    
-    elif(counter==2):
-        LOAD(["LDR", list[1] ])
-        OR_GATE(["OR", list[2] ])
-
-    elif(counter==3):
-        OR_GATE(["OR", list[1], list[2] ])
-        STORE(["STR", list[3] ])
-
-
 def SHOW(list):
 
     if(list[1]=="ACC"):
@@ -410,7 +224,6 @@ def SHOW(list):
 #################################
 
 user_input_file("instrucciones.txt")
-##user_input_console()
 
 ##print(instructions)
 ##print(memory)
