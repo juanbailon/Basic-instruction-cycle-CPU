@@ -43,7 +43,7 @@ def user_input_console():
         data = data.split(" ")
 
         for i in range(1, len(data)):
-            
+
             if( data[i][0]=='D'  and data[i]!='NULL' ):
                 data[i] = int( data[i][1:] )
                 
@@ -56,24 +56,10 @@ def user_input_console():
 
         if(data[0] == "END"):
             break
-        # elif(data[0] == "PRINT"):
-        #     print_registers()
-
 
     instruction_cycle.set_PC(variables.instructions_starting_index)
 
-       
 
-def get_processor_instructions_starting_index():
-    flag = True    
-    index = variables.instructions_starting_index
-    
-    while(flag):
-        if(variables.memory[index][0]=="SET"):
-            index+=1
-        else:
-            flag = False
-            return index
 
 def get_amount_of_non_NULL_elements(list):
     counter=0
@@ -84,25 +70,3 @@ def get_amount_of_non_NULL_elements(list):
             counter+=1
     
     return counter
-
-def check_for_avalible_memory(memory_address):
-    flag=True
-
-    if memory_address in variables.memory:
-        flag=False
-    
-    return flag
-
-def check_range_of_avalible_memory(initial_address, last_address):
-
-    initial_address = int (initial_address[1:])
-    last_address = int (last_address[1:])
-
-    flag= True
-    for i in range(initial_address, last_address+1):
-        flag = check_for_avalible_memory("D"+ str(i))
-
-        if(not flag):
-            break
-    
-    return flag

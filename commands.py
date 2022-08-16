@@ -1,5 +1,4 @@
 from variables import IR, MAR, MDR, ACUMULATOR, ALU, CU, memory
-#from utilities import utilities.get_amount_of_non_NULL_elements
 import utilities
 
 def SET(list):
