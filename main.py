@@ -13,5 +13,5 @@ else:
 instruction_cycle.start_processor_execution()
 
 
-print( variables.memory)
+#print( variables.memory)
 #utilities.print_registers()

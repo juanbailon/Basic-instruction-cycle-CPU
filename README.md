@@ -3,11 +3,13 @@
 This python program tries to emulate the basic instruction cycle of a CPU.
 
 There are to ways to run the program:
->The first one is to pass a .txt file with the insstructions/commands to be executed to the function _user_input_file()_, and then call the function _start_processor_execution()_.
+>The first one is to pass a .txt file, with the insstructions/commands to be executed, as command line argument.
 
->The second way is  to call _user_input_console()_ and write all the insstructions/commands line by line in the terminal and then call the function _start_processor_execution()_.
+>The second way is  to execute the program without command line arguments, and enter the intructions one by one through the terminal.
 
+Both of this methods will be explain later down below
 
+<br>
 
 ## commands
 
@@ -38,12 +40,13 @@ The commands to interact with the program are the following:
   * **STR** - STORE - _STR D3_ Read the value in acumulator register and puts in D3 memory address
    
   * **BEQ** - EQUAL - _BEQ D10_ Load the value in D10 memory address if substration with acumulator register values is zero puts
-   in D10 memory address. There are three ways: _BEQ D10_,
+   true in D10 memory address, otherwise false. There are three ways, following the same logic as the ones before: _BEQ D10_,
    _BEQ D1 D10_, _BEQ D1 D2 D3_
    
-  * **AND** - AND GATE
+  * **AND** - AND GATE, will preform an AND operation between the two parameters(numbers). _AND D3_ Load the value in D3 memory address adn preforms an AND operarion with the value in  the acumulator register. There are three ways, following the same logic as the ones before: AND D10_,
+   AND D1 D10_, AND D1 D2 D3_
    
-  * **OR** - OR GATE
+  * **OR** - OR GATE - the same as the AND but with an OR operation instead
    
   * **SHW** - SHOW - _SHW D2 NULL NULL_ show the value in D2 memory address, _SHW ACC_ show the value in acumulator register, _SHW ICR_
    show the value in ICR register, _SHW MAR_ show the value in MAR
@@ -84,11 +87,21 @@ The commands to interact with the program are the following:
 <br>
 
 ## Run program with commands in txt file 
-For this one lest prentent that the txt file that we use is the second one given in the .txt examples before.
+
 ```sh
-    user_input_file("file_path")
-    start_processor_execution()
+    $ python3 main.py path_to_file.txt
 ```
+
+For this one lest prentent that the txt file that we use is the second one given in the .txt examples before.
+In our case it would look like this
+
+<br>
+
+>Terminal
+```sh
+    $ python3 main.py  input_files/instrucciones.txt
+```
+
 >output
 
         61
@@ -97,12 +110,11 @@ For this one lest prentent that the txt file that we use is the second one given
 
 ## Run program with commands given through the terminal
 ```sh
-    user_input_console()
-    start_processor_execution()
+    $ python3 main.py
 ```
 >Terminal
 ```sh
-    $python3 principal.py
+    $python3 main.py
      SET D1 2
      SET D3 5
      LDR D2
@@ -116,3 +128,10 @@ For this one lest prentent that the txt file that we use is the second one given
 >output
 
         8
+
+
+<br>
+
+## More examples of instructions sets 
+
+more examples of of instructions sets can be fond in the folder **_input_files_**, there would be some .txt file with defferent sets of instructions.
