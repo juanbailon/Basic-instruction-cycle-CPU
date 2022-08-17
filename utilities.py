@@ -21,7 +21,7 @@ def user_input_file(file_path):
             x = x[:-1]
         
         data = x.split(" ")
-        for i in range(1, len(data)-1):
+        for i in range(1, len(data)):
 
             if( data[i][0]=='D'  and data[i]!='NULL' ):
                 data[i] = int( data[i][1:] )

@@ -77,6 +77,7 @@ def MULTIPLICATION(list):
         MAR = list[1]
         MDR = memory[MAR]
         
+        ACUMULATOR = int(ACUMULATOR)
         for i in range(ACUMULATOR-1):
             if(i==0):
                 LOAD(["LDR", MAR])
