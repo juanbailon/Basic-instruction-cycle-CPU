@@ -7,7 +7,6 @@ ALU = None ##Unidad Aritmetico Logica
 CU = None ##Control Unit 
 
 END_flag = False
-instructions=[]
 memory = [0]*5000
 
 instructions_starting_index = 3000

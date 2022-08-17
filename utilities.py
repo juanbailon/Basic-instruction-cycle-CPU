@@ -11,6 +11,7 @@ def print_registers():
     print("CU= "+ str(variables.CU))
 
 
+## read the instructions from a .txt file
 def user_input_file(file_path):
     f = open(file_path, "r")
 
@@ -35,6 +36,7 @@ def user_input_file(file_path):
     instruction_cycle.set_PC(variables.instructions_starting_index)
 
 
+## reads the instructions from the console
 def user_input_console():
     counter=0
 

@@ -7,6 +7,7 @@ def set_PC(value):
     PC = value
 
 
+## the first step to do in the instrucion cycle
 def first_step():
     global PC, MAR, MDR, IR 
 
@@ -15,6 +16,7 @@ def first_step():
     IR = MDR
     PC+=1
 
+## the second step to do in the instrucion cycle
 def second_step():
     global IR, CU
     CU = IR

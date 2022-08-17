@@ -144,7 +144,7 @@ def MOVE(list):
     global MDR
 
     LOAD(["LDR", list[1] ])
-    MDR = None
+    MDR = 0
     memory[MAR] = MDR
     STORE(["STR", list[2] ])
 
@@ -157,16 +157,28 @@ def EQUAL(list):
     if(counter==1):
         SUBTRACTION(["SUB", list[1]] )
         if(ACUMULATOR==0):
+            ACUMULATOR=True
+            STORE(["STR", list[1] ])
+        else:
+            ACUMULATOR=False
             STORE(["STR", list[1] ])
     
     elif(counter==2):
         SUBTRACTION(["SUB", list[1], list[2] ])
         if(ACUMULATOR==0):
+            ACUMULATOR=True
+            STORE(["STR", list[2] ])
+        else:
+            ACUMULATOR=False
             STORE(["STR", list[2] ])
     
     elif(counter==3):
         SUBTRACTION(["SUB", list[1], list[2] ])
         if(ACUMULATOR==0):
+            ACUMULATOR=True
+            STORE(["STR", list[3] ])
+        else:
+            ACUMULATOR=False
             STORE(["STR", list[3] ])
 
     
